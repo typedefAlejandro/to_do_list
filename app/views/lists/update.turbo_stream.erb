@@ -1,0 +1,6 @@
+<turbo-stream action="remove" target="list-edit-modal-<%= @list.id %>"></turbo-stream>
+<turbo-stream action="replace" target="<%= dom_id @list %>">
+  <template>
+    <%= render partial: 'lists/list_card', formats: [:html], locals: { list: @list } %>
+  </template>
+</turbo-stream> 

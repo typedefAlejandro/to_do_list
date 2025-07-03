@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Tarefas</h1>
+
+<% @list ||= @tasks.first&.list %>
+
+<div id="tasks">
+  <% @tasks.each do |task| %>
+    <%= render task %>
+    <p>
+      <%= link_to "Mostrar tarefas", list_task_path(@list, task) %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "Nova tarefa", new_list_task_path(@list) %>

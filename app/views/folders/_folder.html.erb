@@ -1,0 +1,18 @@
+<div id="<%= dom_id folder %>" style="display: flex; align-items: center; gap: 0.5rem;">
+  <span style="font-weight: bold; font-size: 1.1rem;"><%= folder.name %></span>
+  <div data-controller="list-modal">
+    <button title="Adicionar lista" style="font-size: 1.3rem; background: none; border: none; cursor: pointer;" data-action="click->list-modal#open">+</button>
+    <div id="list-modal-<%= folder.id %>" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.3); align-items: center; justify-content: center; z-index: 1000;">
+      <div style="background: white; padding: 2rem; border-radius: 8px; min-width: 300px; position: relative;">
+        <button style="position: absolute; top: 8px; right: 8px; background: none; border: none; font-size: 1.5rem; cursor: pointer;" data-action="click->list-modal#close">&times;</button>
+        <h3>Nova lista</h3>
+        <%= render 'lists/form', list: List.new(folder: folder), folder: folder %>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="lists-in-folder-<%= folder.id %>">
+  <% folder.lists.each do |list| %>
+    <%= render partial: 'lists/list', locals: { list: list } %>
+  <% end %>
+</div>

@@ -1,0 +1,43 @@
+<div class="modal-form">
+<%= form_with(model: [@list || list, task], data: { turbo: true }) do |form| %>
+  <% if task.errors.any? %>
+    <div class="error">
+      <h2><%= pluralize(task.errors.count, "erro") %> impediram o salvamento:</h2>
+      <ul>
+        <% task.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :título %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :descrição %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :prazo %>
+    <%= form.datetime_field :due_date %>
+  </div>
+
+  <div>
+    <%= form.label :concluído %>
+    <%= form.check_box :completed %>
+  </div>
+
+  <div>
+    <%= form.label :prioridade %>
+    <%= form.number_field :priority %>
+  </div>
+
+  <div style="display: flex; justify-content: flex-end;">
+    <%= form.submit 'Criar tarefa', style: 'font-size: 0.98rem; min-width: 120px;' %>
+  </div>
+<% end %>
+</div>

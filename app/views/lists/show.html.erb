@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @list %>
+
+<div>
+  <%= link_to "Editar essa lista", edit_list_path(@list) %> |
+  <%= link_to "Voltar para listas", lists_path %>
+
+  <%= button_to "deletar lista", @list, method: :delete %>
+</div>

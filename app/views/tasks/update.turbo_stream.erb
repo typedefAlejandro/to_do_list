@@ -1,0 +1,6 @@
+<turbo-stream action="remove" target="task-edit-modal-<%= @list.id %>-<%= @task.id %>"></turbo-stream>
+<turbo-stream action="replace" target="<%= dom_id @task %>">
+  <template>
+    <%= render partial: 'tasks/task_item', formats: [:html], locals: { task: @task, list: @list } %>
+  </template>
+</turbo-stream> 

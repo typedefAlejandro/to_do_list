@@ -1,0 +1,6 @@
+<turbo-stream action="remove" target="folder-edit-modal-<%= @folder.id %>"></turbo-stream>
+<turbo-stream action="replace" target="<%= dom_id @folder %>">
+  <template>
+    <%= render partial: 'folders/folder_block', formats: [:html], locals: { folder: @folder } %>
+  </template>
+</turbo-stream> 

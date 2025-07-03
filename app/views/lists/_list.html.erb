@@ -1,0 +1,20 @@
+<div id="<%= dom_id list %>" style="display: flex; align-items: center; gap: 0.5rem;">
+  <span style="font-weight: bold; font-size: 1.05rem; margin-bottom: 0.2rem;">
+    <%= list.name %>
+  </span>
+  <div data-controller="task-modal">
+    <button title="Adicionar tarefa" style="font-size: 1.1rem; background: none; border: none; cursor: pointer;" data-action="click->task-modal#open">+</button>
+    <div id="task-modal-<%= list.id %>" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.3); align-items: center; justify-content: center; z-index: 1000;">
+      <div style="background: white; padding: 2rem; border-radius: 8px; min-width: 300px; position: relative;">
+        <button style="position: absolute; top: 8px; right: 8px; background: none; border: none; font-size: 1.5rem; cursor: pointer;" data-action="click->task-modal#close">&times;</button>
+        <h3>Nova tarefa</h3>
+        <%= render 'tasks/form', task: Task.new, list: list %>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="tasks-in-list-<%= list.id %>">
+  <% list.tasks.order(priority: :desc).each do |task| %>
+    <%= render partial: 'tasks/task', locals: { task: task, list: list } %>
+  <% end %>
+</div>

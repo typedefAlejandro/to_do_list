@@ -1,0 +1,50 @@
+pt-BR:
+  hello: "Olá mundo"
+  activerecord:
+    models:
+      user: "Usuário"
+      list: "Lista"
+      task: "Tarefa"
+      folder: "Pasta"
+    attributes:
+      user:
+        name: "Nome"
+        email: "E-mail"
+        password: "Senha"
+      list:
+        name: "Nome"
+        description: "Descrição"
+        folder: "Pasta"
+      task:
+        title: "Título"
+        description: "Descrição"
+        due_date: "Prazo"
+        completed: "Concluído"
+        priority: "Prioridade"
+      folder:
+        name: "Nome"
+  helpers:
+    submit:
+      create: "Criar %{model}"
+      update: "Atualizar %{model}"
+      submit: "Salvar %{model}"
+    select:
+      prompt: "Por favor selecione"
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      blank: "não pode ficar em branco"
+      taken: "já está em uso"
+      too_short: "é muito curto (mínimo %{count} caracteres)"
+      too_long: "é muito longo (máximo %{count} caracteres)"
+      confirmation: "não coincide com a confirmação"
+  views:
+    pagination:
+      previous: "Anterior"
+      next: "Próximo"
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"
+  date:
+    formats:
+      default: "%d/%m/%Y" 

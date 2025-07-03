@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @task %>
+
+<% @list ||= @task.list %>
+
+<div>
+  <%= link_to "Editar tarefa", edit_list_task_path(@list, @task) %> |
+  <%= link_to "Voltar para tarefas", list_tasks_path(@list) %> |
+  <%= button_to "Deletar tarefa", [@list, @task], method: :delete, data: { confirm: "tem certeza?" } %>
+</div>

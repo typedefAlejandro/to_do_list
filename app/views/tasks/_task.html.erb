@@ -1,0 +1,13 @@
+<div id="<%= dom_id task %>">
+  <span style="font-weight: bold; margin-right: 0.5rem;">
+    <%= task.title %>
+  </span>
+  <% if task.due_date.present? %>
+    <span style="color: #888; font-size: 0.95em; margin-right: 0.5rem;">
+      (<%= l(task.due_date, format: :short) %>)
+    </span>
+  <% end %>
+  <span>
+    <%= task.completed ? "✅" : "⏳" %>
+  </span>
+</div>

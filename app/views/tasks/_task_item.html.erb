@@ -1,0 +1,37 @@
+<div class="task-item" id="<%= dom_id task %>">
+  <%= form_with(model: [list, task], method: :patch, data: { turbo: true }, style: 'display: inline; margin: 0; padding: 0;' ) do |f| %>
+    <%= f.check_box :completed, { checked: task.completed, onchange: 'this.form.submit()', class: 'task-checkbox' } %>
+  <% end %>
+  <div style="display: flex; align-items: center; gap: 2px; flex: 1;">
+    <span class="task-title"><%= task.title %></span>
+    <button class="edit-icon-btn" title="Editar tarefa" type="button" onclick="openTaskEditModal(<%= list.id %>, <%= task.id %>)" style="background: none; border: none; margin-left: 2px; cursor: pointer; padding: 0; display: flex; align-items: center;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24">
+        <path fill="#8c6b6b" d="M3 17.25V21h3.75l11-11.03-3.75-3.75L3 17.25zm14.71-9.04a1 1 0 0 0 0-1.41l-2.5-2.5a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.99-1.67z"/>
+      </svg>
+    </button>
+  </div>
+  <% if task.due_date.present? %>
+    <span class="task-date">(<%= task.due_date.strftime('%d/%m') %>)</span>
+  <% end %>
+</div>
+<!-- Modal de edição de tarefa -->
+<div id="task-edit-modal-<%= list.id %>-<%= task.id %>" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.3); align-items: center; justify-content: center; z-index: 1000;">
+  <div style="background: white; padding: 2rem; border-radius: 8px; min-width: 300px; position: relative;">
+    <button style="position: absolute; top: 8px; right: 8px; background: none; border: none; font-size: 1.5rem; cursor: pointer;" onclick="closeTaskEditModal(<%= list.id %>, <%= task.id %>)">&times;</button>
+    <h3 style="display: flex; align-items: center; gap: 8px;">
+      Editar tarefa
+      <%= link_to list_task_path(list, task), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Tem certeza? Esta ação irá excluir a tarefa '#{task.title}'. Esta ação não pode ser desfeita." }, class: 'delete-icon', title: 'Excluir tarefa' do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24"><path fill="#dc3545" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+      <% end %>
+    </h3>
+    <%= render 'tasks/edit_form', task: task, list: list %>
+  </div>
+</div>
+<script>
+function openTaskEditModal(listId, taskId) {
+  document.getElementById(`task-edit-modal-${listId}-${taskId}`).style.display = 'flex';
+}
+function closeTaskEditModal(listId, taskId) {
+  document.getElementById(`task-edit-modal-${listId}-${taskId}`).style.display = 'none';
+}
+</script> 

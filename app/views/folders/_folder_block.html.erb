@@ -1,0 +1,65 @@
+<div class="folder-block" style="position: relative;" id="<%= dom_id folder %>">
+  <div class="folder-title" style="display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; gap: 2px; flex: 1;">
+      <span><%= folder.name %></span>
+      <button class="edit-icon-btn" title="Editar pasta" type="button" onclick="openFolderEditModal(<%= folder.id %>)" style="background: none; border: none; margin-left: 2px; cursor: pointer; padding: 0; display: flex; align-items: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
+          <path fill="#8c6b6b" d="M3 17.25V21h3.75l11-11.03-3.75-3.75L3 17.25zm14.71-9.04a1 1 0 0 0 0-1.41l-2.5-2.5a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.99-1.67z"/>
+        </svg>
+      </button>
+    </div>
+    <button class="btn" style="margin-left: 12px; padding: 4px 12px; font-size: 1.2rem;" title="Adicionar lista" type="button" onclick="openListModal(<%= folder.id %>)">+</button>
+  </div>
+  <!-- Modal de edição de pasta -->
+  <div id="folder-edit-modal-<%= folder.id %>" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.3); align-items: center; justify-content: center; z-index: 1000;">
+    <div style="background: white; padding: 2rem; border-radius: 8px; min-width: 300px; position: relative;">
+      <button style="position: absolute; top: 8px; right: 8px; background: none; border: none; font-size: 1.5rem; cursor: pointer;" onclick="closeFolderEditModal(<%= folder.id %>)">&times;</button>
+      <h3 style="display: flex; align-items: center; gap: 8px;">
+        Editar pasta
+        <%= link_to folder_path(folder), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Tem certeza? Esta ação irá excluir a pasta '#{folder.name}' e TODAS as listas e tarefas associadas. Esta ação não pode ser desfeita." }, class: 'delete-icon', title: 'Excluir pasta' do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24"><path fill="#dc3545" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+        <% end %>
+      </h3>
+      <%= render 'folders/edit_form', folder: folder %>
+    </div>
+  </div>
+  <!-- Modal de nova lista para esta pasta -->
+  <div id="list-modal-<%= folder.id %>" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.3); align-items: center; justify-content: center; z-index: 1000;">
+    <div style="background: white; padding: 2rem; border-radius: 8px; min-width: 300px; position: relative;">
+      <button style="position: absolute; top: 8px; right: 8px; background: none; border: none; font-size: 1.5rem; cursor: pointer;" onclick="closeListModal(<%= folder.id %>)">&times;</button>
+      <h3>Nova lista</h3>
+      <%= render 'lists/form', list: List.new(folder: folder), folder: folder %>
+    </div>
+  </div>
+  <div class="lists-carousel" id="lists-carousel-<%= folder.id %>">
+    <% folder.lists.order(:name).each do |list| %>
+      <div class="list-card">
+        <div class="list-card-header">
+          <%= list.name %>
+        </div>
+        <div class="tasks-scroll">
+          <% list.tasks.order(priority: :desc).each do |task| %>
+            <div class="task-item">
+              <%= form_with(model: [list, task], local: true, method: :patch, style: 'display: inline; margin: 0; padding: 0;' ) do |f| %>
+                <%= f.check_box :completed, { checked: task.completed, onchange: 'this.form.submit()', class: 'task-checkbox' } %>
+              <% end %>
+              <span class="task-title"><%= task.title %></span>
+              <% if task.due_date.present? %>
+                <span class="task-date">(<%= task.due_date.strftime('%d/%m') %>)</span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <button class="carousel-arrow" onclick="this.parentElement.scrollBy({left: 220, behavior: 'smooth'})">&gt;</button>
+  </div>
+</div>
+<script>
+function openFolderEditModal(folderId) {
+  document.getElementById(`folder-edit-modal-${folderId}`).style.display = 'flex';
+}
+function closeFolderEditModal(folderId) {
+  document.getElementById(`folder-edit-modal-${folderId}`).style.display = 'none';
+}
+</script> 

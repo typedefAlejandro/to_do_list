@@ -1,0 +1,33 @@
+<div class="modal-form">
+<%= form_with(model: list, data: { turbo: true }) do |form| %>
+  <% if list.errors.any? %>
+    <div class="error">
+      <h2><%= pluralize(list.errors.count, "erro") %> impediram o salvamento:</h2>
+      <ul>
+        <% list.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nome, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :descrição, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :folder_id, "Pasta" %>
+    <%= form.collection_select :folder_id, current_user.folders, :id, :name, prompt: "Escolher pasta (opcional)" %>
+  </div>
+
+  <div class="modal-form-actions" style="justify-content: center;">
+    <%= form.submit 'Salvar lista', class: 'save-btn' %>
+  </div>
+<% end %>
+</div> 

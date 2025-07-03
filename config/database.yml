@@ -81,7 +81,4 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: to_do_list_production
-  username: to_do_list
-  password: <%= ENV["TO_DO_LIST_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>

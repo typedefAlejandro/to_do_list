@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @folder %>
+
+<div>
+  <%= link_to "Editar pastas", edit_folder_path(@folder) %> |
+  <%= link_to "Voltar para pastas", folders_path %>
+
+  <%= button_to "Deletar", @folder, method: :delete %>
+</div>

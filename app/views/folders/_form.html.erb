@@ -1,0 +1,21 @@
+<div class="modal-form">
+<%= form_with(model: folder, data: { turbo: true }) do |form| %>
+  <% if folder.errors.any? %>
+    <div class="error">
+      <h2><%= pluralize(folder.errors.count, "erro") %> impediram o salvamento:</h2>
+      <ul>
+        <% folder.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div>
+    <%= form.label :nome, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+  <div style="display: flex; justify-content: flex-end;">
+    <%= form.submit 'Criar pasta', style: 'font-size: 0.98rem; min-width: 120px;' %>
+  </div>
+<% end %>
+</div>
