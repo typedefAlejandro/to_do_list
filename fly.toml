@@ -1,20 +1,10 @@
 app = "pacha-muddy-dream-3585"
 
-[build]
-  # Se estiver usando Dockerfile customizado, pode remover esta linha
-  # builder = "heroku/buildpacks:20"
-
 [env]
   RAILS_ENV = "production"
 
 [deploy]
   release_command = "bin/rails db:migrate"
-
-[processes]
-  app = "bundle exec puma -C config/puma.rb"
-
-[experimental]
-  auto_rollback = true
 
 [[services]]
   internal_port = 3000
