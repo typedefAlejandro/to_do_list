@@ -1,6 +1,45 @@
-<turbo-stream action="remove" target="folder-modal"></turbo-stream>
+<turbo-stream action="after" target="folder-modal">
+  <template>
+    <script>
+      document.getElementById('folder-modal').style.display = 'none';
+    </script>
+  </template>
+</turbo-stream>
 <turbo-stream action="append" target="folders-list">
   <template>
-    <%= render partial: 'folders/folder_block', formats: [:html], locals: { folder: @folder } %>
+    <div class="folder-block" style="position: relative; background: #f6e7c1; border-radius: 14px; box-shadow: 0 2px 12px #0002; margin-bottom: 32px; padding: 0 0 24px 0;">
+      <div class="folder-title" style="display: flex; align-items: center; justify-content: space-between; background: #c7a72a; border-radius: 14px 14px 0 0; padding: 18px 28px 12px 28px; font-size: 1.25rem; font-weight: bold; color: #4d3c00;">
+        <div style="display: flex; align-items: center; gap: 2px;">
+          <span><%= @folder.name %></span>
+          <button class="edit-icon-btn" title="Editar pasta" type="button" onclick="openFolderEditModal(<%= @folder.id %>)" style="background: none; border: none; margin-left: 2px; cursor: pointer; padding: 0; display: flex; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
+              <path fill="#8c6b6b" d="M3 17.25V21h3.75l11-11.03-3.75-3.75L3 17.25zm14.71-9.04a1 1 0 0 0 0-1.41l-2.5-2.5a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.99-1.67z"/>
+            </svg>
+          </button>
+        </div>
+        <button class="btn" style="margin-left: 12px; padding: 4px 12px; font-size: 1.2rem; background: #8c6b6b; color: #fff; border-radius: 7px;" title="Adicionar lista" type="button" onclick="openListModal(<%= @folder.id %>)">+</button>
+      </div>
+      <!-- Modal de edição de pasta -->
+      <div id="folder-edit-modal-<%= @folder.id %>" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.3); align-items: center; justify-content: center; z-index: 1000;">
+        <div style="background: white; padding: 2rem; border-radius: 8px; min-width: 300px; position: relative;">
+          <button style="position: absolute; top: 8px; right: 8px; background: none; border: none; font-size: 1.5rem; cursor: pointer;" onclick="closeFolderEditModal(<%= @folder.id %>)">&times;</button>
+          <h3>Editar pasta</h3>
+          <%= render partial: 'folders/edit_form', formats: [:html], locals: { folder: @folder } %>
+        </div>
+      </div>
+      <!-- Modal de nova lista para esta pasta -->
+      <div id="list-modal-<%= @folder.id %>" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.3); align-items: center; justify-content: center; z-index: 1000;">
+        <div style="background: white; padding: 2rem; border-radius: 8px; min-width: 300px; position: relative;">
+          <button style="position: absolute; top: 8px; right: 8px; background: none; border: none; font-size: 1.5rem; cursor: pointer;" onclick="closeListModal(<%= @folder.id %>)">&times;</button>
+          <h3>Nova lista</h3>
+          <%= render partial: 'lists/form', formats: [:html], locals: { list: List.new(folder: @folder), folder: @folder } %>
+        </div>
+      </div>
+      <div class="lists-carousel drag-scroll" id="lists-carousel-<%= @folder.id %>" style="padding: 18px 28px 0 28px;">
+        <% @folder.lists.order(:name).each do |list| %>
+          <%= render partial: 'lists/list_card', locals: { list: list } %>
+        <% end %>
+      </div>
+    </div>
   </template>
 </turbo-stream> 

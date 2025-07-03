@@ -1,27 +1,27 @@
 <div class="login-bg" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(120deg, #e0e0e0 60%, #c7a72a 100%);">
   <div class="login-card" style="background: #fff; border-radius: 18px; box-shadow: 0 6px 32px #0002; padding: 2.5rem 2.2rem 2rem 2.2rem; min-width: 340px; max-width: 95vw; display: flex; flex-direction: column; align-items: center;">
     <h2 style="color: #8c6b6b; font-size: 2rem; margin-bottom: 1.5rem; font-weight: bold; letter-spacing: 0.5px;">Entrar</h2>
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field" style="margin-bottom: 1.1rem; width: 100%;">
         <%= f.label :email, style: 'font-weight: 500; color: #8c6b6b;' %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email", style: 'width: 100%; padding: 10px 12px; border-radius: 7px; border: 1.5px solid #c7a72a; background: #f8f8f8; font-size: 1.08rem; margin-top: 4px;' %>
-      </div>
+  </div>
       <div class="field" style="margin-bottom: 1.1rem; width: 100%;">
         <%= f.label :password, style: 'font-weight: 500; color: #8c6b6b;' %><br />
         <%= f.password_field :password, autocomplete: "current-password", style: 'width: 100%; padding: 10px 12px; border-radius: 7px; border: 1.5px solid #c7a72a; background: #f8f8f8; font-size: 1.08rem; margin-top: 4px;' %>
-      </div>
-      <% if devise_mapping.rememberable? %>
+  </div>
+  <% if devise_mapping.rememberable? %>
         <div class="field" style="margin-bottom: 1.1rem; width: 100%; display: flex; align-items: center; gap: 7px;">
           <%= f.check_box :remember_me, style: 'accent-color: #8c6b6b; width: 18px; height: 18px;' %>
           <%= f.label :remember_me, style: 'font-size: 1rem; color: #8c6b6b; font-weight: 400; margin-bottom: 0;' %>
-        </div>
-      <% end %>
+    </div>
+  <% end %>
       <div class="actions" style="width: 100%; margin-top: 1.2rem; display: flex; flex-direction: column; align-items: center;">
         <%= f.submit "Entrar", style: 'background: #8c6b6b; color: #fff; border: none; border-radius: 8px; padding: 12px 0; min-width: 160px; font-size: 1.1rem; font-weight: bold; box-shadow: 0 2px 8px #0001; transition: background 0.2s; cursor: pointer;' %>
-      </div>
-    <% end %>
+  </div>
+<% end %>
     <div style="margin-top: 1.5rem; width: 100%; text-align: center;">
-      <%= render "devise/shared/links" %>
+<%= render "devise/shared/links" %>
     </div>
   </div>
 </div>

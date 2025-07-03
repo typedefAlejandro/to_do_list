@@ -1,33 +1,33 @@
 <div class="login-bg" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(120deg, #e0e0e0 60%, #c7a72a 100%);">
   <div class="login-card" style="background: #fff; border-radius: 18px; box-shadow: 0 6px 32px #0002; padding: 2.5rem 2.2rem 2rem 2.2rem; min-width: 340px; max-width: 95vw; display: flex; flex-direction: column; align-items: center;">
     <h2 style="color: #8c6b6b; font-size: 2rem; margin-bottom: 1.5rem; font-weight: bold; letter-spacing: 0.5px;">Criar conta</h2>
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
       <div class="field" style="margin-bottom: 1.1rem; width: 100%;">
         <%= f.label :name, style: 'font-weight: 500; color: #8c6b6b;' %><br />
         <%= f.text_field :name, autofocus: true, autocomplete: "name", style: 'width: 100%; padding: 10px 12px; border-radius: 7px; border: 1.5px solid #c7a72a; background: #f8f8f8; font-size: 1.08rem; margin-top: 4px;' %>
-      </div>
+  </div>
       <div class="field" style="margin-bottom: 1.1rem; width: 100%;">
         <%= f.label :email, style: 'font-weight: 500; color: #8c6b6b;' %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email", style: 'width: 100%; padding: 10px 12px; border-radius: 7px; border: 1.5px solid #c7a72a; background: #f8f8f8; font-size: 1.08rem; margin-top: 4px;' %>
-      </div>
+  </div>
       <div class="field" style="margin-bottom: 1.1rem; width: 100%;">
         <%= f.label :password, style: 'font-weight: 500; color: #8c6b6b;' %>
-        <% if @minimum_password_length %>
+    <% if @minimum_password_length %>
           <em style="font-size: 0.98rem; color: #a48d1c;">(<%= @minimum_password_length %> caracteres mínimo)</em>
-        <% end %><br />
+    <% end %><br />
         <%= f.password_field :password, autocomplete: "new-password", style: 'width: 100%; padding: 10px 12px; border-radius: 7px; border: 1.5px solid #c7a72a; background: #f8f8f8; font-size: 1.08rem; margin-top: 4px;' %>
-      </div>
+  </div>
       <div class="field" style="margin-bottom: 1.1rem; width: 100%;">
         <%= f.label :password_confirmation, style: 'font-weight: 500; color: #8c6b6b;' %><br />
         <%= f.password_field :password_confirmation, autocomplete: "new-password", style: 'width: 100%; padding: 10px 12px; border-radius: 7px; border: 1.5px solid #c7a72a; background: #f8f8f8; font-size: 1.08rem; margin-top: 4px;' %>
-      </div>
+  </div>
       <div class="actions" style="width: 100%; margin-top: 1.2rem; display: flex; flex-direction: column; align-items: center;">
         <%= f.submit "Criar conta", style: 'background: #8c6b6b; color: #fff; border: none; border-radius: 8px; padding: 12px 0; min-width: 160px; font-size: 1.1rem; font-weight: bold; box-shadow: 0 2px 8px #0001; transition: background 0.2s; cursor: pointer;' %>
-      </div>
-    <% end %>
+  </div>
+<% end %>
     <div style="margin-top: 1.5rem; width: 100%; text-align: center;">
-      <%= render "devise/shared/links" %>
+<%= render "devise/shared/links" %>
     </div>
   </div>
 </div>

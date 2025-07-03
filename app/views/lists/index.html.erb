@@ -18,7 +18,7 @@
     <% else %>
       <div class="folders-column" id="folders-list">
         <% @folders.each do |folder| %>
-          <div class="folder-block" style="position: relative; background: #f6e7c1; border-radius: 14px; box-shadow: 0 2px 12px #0002; margin-bottom: 32px; padding: 0 0 24px 0;">
+          <div class="folder-block" id="<%= dom_id folder %>" style="position: relative; background: #f6e7c1; border-radius: 14px; box-shadow: 0 2px 12px #0002; margin-bottom: 32px; padding: 0 0 24px 0;">
             <div class="folder-title" style="display: flex; align-items: center; justify-content: space-between; background: #c7a72a; border-radius: 14px 14px 0 0; padding: 18px 28px 12px 28px; font-size: 1.25rem; font-weight: bold; color: #4d3c00;">
               <div style="display: flex; align-items: center; gap: 2px;">
                 <span><%= folder.name %></span>
@@ -34,7 +34,12 @@
             <div id="folder-edit-modal-<%= folder.id %>" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.3); align-items: center; justify-content: center; z-index: 1000;">
               <div style="background: white; padding: 2rem; border-radius: 8px; min-width: 300px; position: relative;">
                 <button style="position: absolute; top: 8px; right: 8px; background: none; border: none; font-size: 1.5rem; cursor: pointer;" onclick="closeFolderEditModal(<%= folder.id %>)">&times;</button>
-                <h3>Editar pasta</h3>
+                <h3 style="display: flex; align-items: center; gap: 8px;">
+                  Editar pasta
+                  <%= link_to folder_path(folder), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Tem certeza? Esta ação irá excluir a pasta '#{folder.name}' e TODAS as listas e tarefas associadas. Esta ação não pode ser desfeita." }, class: 'delete-icon', title: 'Excluir pasta' do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24"><path fill="#dc3545" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                  <% end %>
+                </h3>
                 <%= render 'folders/edit_form', folder: folder %>
               </div>
             </div>
@@ -49,7 +54,7 @@
             <div class="lists-carousel drag-scroll" id="lists-carousel-<%= folder.id %>" style="padding: 18px 28px 0 28px;">
               <% folder.lists.order(:name).each do |list| %>
                 <%= render partial: 'lists/list_card', locals: { list: list } %>
-              <% end %>
+    <% end %>
             </div>
           </div>
         <% end %>

@@ -2,4 +2,20 @@
   <template>
     <%= render partial: 'tasks/task_item', formats: [:html], locals: { task: @task, list: @list } %>
   </template>
+</turbo-stream>
+<turbo-stream action="after" target="task-modal-<%= @list.id %>">
+  <template>
+    <script>
+      document.querySelectorAll(`#task-modal-<%= @list.id %> form`).forEach(f => f.reset());
+    </script>
+  </template>
+</turbo-stream>
+<turbo-stream action="replace" target="tasks-counter">
+  <template>
+    <% total = current_user.tasks.count %>
+    <% concluidas = current_user.tasks.where(completed: true).count %>
+    <span id="tasks-counter" style="font-size: 1rem; color: #a48d1c; font-weight: 500; background: #fff2; border-radius: 6px; padding: 2px 12px; margin-left: 8px;">
+      <%= concluidas %> / <%= total %> tarefas concluídas
+    </span>
+  </template>
 </turbo-stream> 

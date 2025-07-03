@@ -2,4 +2,12 @@
   <template>
     <%= render partial: 'lists/list_card', formats: [:html], locals: { list: @list } %>
   </template>
+</turbo-stream>
+<turbo-stream action="after" target="list-modal-<%= @list.folder_id %>">
+  <template>
+    <script>
+      const form = document.querySelector(`#list-modal-<%= @list.folder_id %> form`);
+      if(form) form.reset();
+    </script>
+  </template>
 </turbo-stream> 
