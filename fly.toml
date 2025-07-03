@@ -1,0 +1,40 @@
+app = "pacha-muddy-dream-3585"
+
+[build]
+  # Se estiver usando Dockerfile customizado, pode remover esta linha
+  # builder = "heroku/buildpacks:20"
+
+[env]
+  RAILS_ENV = "production"
+
+[deploy]
+  release_command = "bin/rails db:migrate"
+
+[processes]
+  app = "bundle exec puma -C config/puma.rb"
+
+[experimental]
+  auto_rollback = true
+
+[[services]]
+  internal_port = 3000
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.tcp_checks]]
+    interval = 10000
+    timeout = 2000
+    grace_period = "10s"
+    restart_limit = 0
