@@ -1,24 +1,61 @@
-# README
+# ToDo List - Ruby on Rails
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Aplicação web para gerenciamento de tarefas com múltiplos níveis (pastas, listas e tarefas), interface moderna, responsiva e deploy em produção via Fly.io.
 
-Things you may want to cover:
+## Tecnologias Utilizadas
 
-* Ruby version
+- **Ruby** 3.2.8
+- **Rails** 7.1.x
+- **PostgreSQL** 15 (banco de dados)
+- **Devise** (autenticação)
+- **Turbo Streams** (atualização dinâmica)
+- **Docker** e **Docker Compose** (ambiente e deploy)
+- **Fly.io** (deploy em nuvem)
+- **Stimulus** (JS leve para modais e interações)
+- **I18n** (internacionalização para português)
 
-* System dependencies
+## Funcionalidades
 
-* Configuration
+- Cadastro e login de usuários (Devise)
+- Criação, edição e remoção de **pastas**
+- Criação, edição e remoção de **listas** dentro de pastas
+- Criação, edição, conclusão e remoção de **tarefas** dentro de listas
+- Interface moderna, responsiva, com cards, modais e botões estilizados
+- Atualização dinâmica de listas, pastas e tarefas (Turbo Streams)
+- Filtros e ordenação de pastas/listas
+- Navbar fixa com contagem de tarefas concluídas
+- Internacionalização completa para português
 
-* Database creation
+## Como rodar localmente (Docker)
 
-* Database initialization
+1. Instale Docker e Docker Compose
+2. Rode:
+   ```bash
+   docker-compose build
+   docker-compose up
+   # Em outro terminal:
+   docker-compose run web rails db:create db:migrate
+   ```
+3. Acesse [http://localhost:3000](http://localhost:3000)
 
-* How to run the test suite
+## Deploy em produção
 
-* Services (job queues, cache servers, search engines, etc.)
+Deploy automatizado via Fly.io.
 
-* Deployment instructions
+## Processo de Desenvolvimento
 
-* ...
+1. Primeiro estudei um pouco sobre a linguagem, a qual não havia contato antes
+2. Depois iniciei o projeto e brinquei um pouco com os scaffolds e migrations
+3. Com o conhecimento das possibilidades, modelei uma tela pelo figma:
+![modelagem](figma_inicial.png)
+4. Então comecei o desenvolvimento pela criação do usuário, utilizando o devise
+5. Seguido pelas pastas, listas e tarefas que foram criados no banco
+6. Optei em ter uma abordagem mais pessoal com o cliente e adicionei a possibilidade de um nome além do email
+7. Estabelecido o back-end com regras de pastas, listas e tarefas pertencerem a usuários, comecei a organizar o front-end
+8. Então desenvolvi a tela da forma que havia modelado e apliquei melhorias e alguns desvios
+9. Conheci o Turbo streams, que faria a aplicação ser mais dinâmica ao editar, excluir e criar entidades.
+10. Também gerei arquivos de tradução.
+11. Em seguida criei a listagem por filtros.
+
+
+Desenvolvido com ❤️ por [Alejandro](https://github.com/typedefAlejandro)
